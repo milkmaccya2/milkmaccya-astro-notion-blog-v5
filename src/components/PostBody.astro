@@ -1,0 +1,16 @@
+---
+import { marked } from 'marked'
+
+interface Props {
+  body?: string
+}
+
+const { body } = Astro.props
+const contentHtml = body ? await marked.parse(body) : ''
+---
+
+<div
+  class="prose prose-lg prose-slate mx-auto max-w-none prose-headings:font-bold prose-headings:text-slate-800 prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-3xl prose-img:shadow-lg"
+>
+  <Fragment set:html={contentHtml} />
+</div>

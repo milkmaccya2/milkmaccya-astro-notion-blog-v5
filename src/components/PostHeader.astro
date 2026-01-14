@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string
+  date?: string
+  tags?: string[]
+  summary?: string
+}
+
+const { title, date, tags, summary } = Astro.props
+---
+
+<header class="mb-12 text-center">
+  <h1
+    class="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight"
+  >
+    {title}
+  </h1>
+  <div class="flex items-center justify-center gap-4 text-slate-500 mb-8">
+    <time class="font-mono bg-slate-50 px-3 py-1 rounded-full text-sm">
+      {new Date(date || '').toLocaleDateString('ja-JP')}
+    </time>
+    {
+      tags?.map((tag) => (
+        <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-600 font-medium">
+          {' '}
+          # {tag}{' '}
+        </span>
+      ))
+    }
+  </div>
+  {
+    summary && (
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-slate-600 italic">
+        {summary}
+      </div>
+    )
+  }
+</header>

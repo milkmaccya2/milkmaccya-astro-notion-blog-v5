@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+import PostHeader from '@/components/PostHeader.astro'
+import PostBody from '@/components/PostBody.astro'
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog')
+    return posts.map((post) => ({
+        params: { id: post.id },
+        props: { post },
+    }))
+}
+
+const { post } = Astro.props
+---
+
+<Layout title={post.data.title}>
+    <article class="max-w-3xl mx-auto px-4 py-12">
+        <PostHeader
+            title={post.data.title}
+            date={post.data.date}
+            tags={post.data.tags}
+            summary={post.data.summary}
+        />
+
+        <PostBody body={post.data.body} />
+    </article>
+</Layout>
